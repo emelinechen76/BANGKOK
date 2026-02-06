@@ -3,155 +3,207 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>泰國行 2026</title>
+    <title>泰國行 2026 - MUJI Travel</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com" rel="stylesheet">
     <style>
-        :root {
-            --muji-bg: #F7F3EF;
-            --muji-red: #7F2626;
-            --muji-text: #333333;
-            --muji-gray: #BCB8B1;
-        }
-        body {
-            font-family: 'Noto Sans TC', sans-serif;
-            background-color: var(--muji-bg);
-            color: var(--muji-text);
-            line-height: 1.6;
-        }
-        .muji-card {
-            background: #FFFFFF;
-            border-radius: 2px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-        }
-        .btn-nav {
-            background-color: var(--muji-red);
-            color: white;
-            padding: 6px 16px;
-            border-radius: 2px;
-            font-size: 0.85rem;
-            display: inline-block;
-        }
-        .tag {
-            font-size: 0.75rem;
-            padding: 2px 8px;
-            border: 1px solid var(--muji-text);
-            margin-right: 4px;
-        }
-        .tag-must {
-            background-color: var(--muji-red);
-            color: white;
-            border: none;
-        }
-        /* 底部導覽欄 */
-        .tab-bar {
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-            background: white;
-            border-top: 1px solid #eee;
-            display: flex;
-            justify-content: space-around;
-            padding: 10px 0;
-            z-index: 100;
-        }
+        :root { --muji-bg: #F7F3EF; --muji-red: #7F2626; --muji-text: #333333; }
+        body { font-family: 'Noto Sans TC', sans-serif; background-color: var(--muji-bg); color: var(--muji-text); padding-bottom: 80px; }
+        .muji-card { background: #FFFFFF; border-radius: 2px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); margin-bottom: 12px; padding: 16px; }
+        .btn-nav { background-color: var(--muji-red); color: white; padding: 4px 12px; border-radius: 2px; font-size: 0.8rem; }
+        .tag { font-size: 0.7rem; padding: 2px 6px; border: 1px solid var(--muji-text); margin-right: 4px; display: inline-block; margin-top: 4px; }
+        .tag-must { background-color: var(--muji-red); color: white; border: none; }
+        .day-header { border-bottom: 2px solid #333; margin: 24px 0 16px 0; padding-bottom: 4px; display: flex; justify-content: space-between; align-items: flex-end; }
+        .time-label { font-family: monospace; color: #999; font-size: 0.8rem; }
+        .tab-bar { position: fixed; bottom: 0; width: 100%; background: white; border-top: 1px solid #eee; display: flex; justify-content: space-around; padding: 10px 0; z-index: 100; }
     </style>
 </head>
-<body class="pb-20">
+<body>
 
-    <!-- Header -->
     <header class="p-6 bg-white border-b border-gray-200">
-        <h1 class="text-2xl font-bold tracking-widest">THAILAND 2026</h1>
-        <p class="text-sm text-gray-500 mt-1">2/15 - 2/23 除夕至初六</p>
+        <h1 class="text-2xl font-bold tracking-widest uppercase">Thailand 2026</h1>
+        <p class="text-xs text-gray-400 mt-1 italic italic">Pure & Minimalist Journey</p>
     </header>
 
-    <!-- 內容區塊 -->
-    <main class="p-4" id="app">
-        <!-- 每日行程示例：2/16 -->
-        <section class="mb-8">
-            <div class="flex justify-between items-end mb-4">
-                <h2 class="text-xl font-medium border-b-2 border-black pb-1">02.16 <span class="text-sm">MON</span></h2>
-                <div class="text-right">
-                    <span class="text-xs text-gray-400">Bangkok</span>
-                    <p class="text-sm font-bold">☁️ 28°C - 34°C</p>
+    <main class="p-4">
+        
+        <!-- 2/16 除夕 -->
+        <section>
+            <div class="day-header">
+                <h2 class="text-xl font-bold">02.16 <span class="text-sm">MON / 除夕</span></h2>
+                <span class="text-xs font-bold">☁️ 28-34°C</span>
+            </div>
+            
+            <div class="muji-card">
+                <div class="flex justify-between">
+                    <div class="flex-1">
+                        <span class="time-label">08:00</span>
+                        <h3 class="font-bold">Mae Varee 芒果糯米飯</h3>
+                        <span class="tag tag-must">必吃美食</span><span class="tag">60年老店</span>
+                    </div>
+                    <a href="https://maps.app.goo.gl" class="btn-nav h-fit">導航</a>
                 </div>
             </div>
 
-            <!-- 卡片 1: 早餐 -->
-            <div class="muji-card p-4 mb-4">
-                <div class="flex justify-between items-start">
-                    <div>
-                        <span class="text-xs text-gray-400 font-mono">08:00</span>
-                        <h3 class="text-lg font-bold">Mae Varee 芒果糯米飯</h3>
-                        <p class="text-sm text-gray-600 mt-1 italic">60年老店，當地人與遊客的首選。</p>
-                        <div class="mt-2">
-                            <span class="tag tag-must">必吃美食</span>
-                            <span class="tag">三色糯米</span>
-                        </div>
+            <div class="muji-card">
+                <div class="flex justify-between">
+                    <div class="flex-1">
+                        <span class="time-label">11:30</span>
+                        <h3 class="font-bold">Gedhawa 泰北菜</h3>
+                        <span class="tag tag-must">必吃：咖哩金麵</span>
                     </div>
-                    <a href="https://maps.app.goo.gl" class="btn-nav">導覽</a>
+                    <a href="https://maps.app.goo.gl" class="btn-nav h-fit">導航</a>
                 </div>
             </div>
 
-            <!-- 卡片 2: 景點 -->
-            <div class="muji-card p-4 mb-4">
-                <div class="flex justify-between items-start">
-                    <div>
-                        <span class="text-xs text-gray-400 font-mono">10:00</span>
-                        <h3 class="text-lg font-bold">Dib Bangkok / Flo Furniture</h3>
-                        <p class="text-sm text-gray-600 mt-1">泰國設計師家具與雜貨選物。</p>
-                        <p class="text-xs text-red-700 mt-1 font-bold">攻略：巷弄外拍光線極佳，不看展也可純外拍。</p>
+            <div class="muji-card">
+                <div class="flex justify-between">
+                    <div class="flex-1">
+                        <span class="time-label">19:30</span>
+                        <h3 class="font-bold">頌通酒家 Sornthong</h3>
+                        <span class="tag">海鮮熱炒</span>
                     </div>
-                    <a href="https://maps.app.goo.gl" class="btn-nav">導覽</a>
-                </div>
-            </div>
-
-             <!-- 卡片 3: 晚餐 -->
-             <div class="muji-card p-4 mb-4">
-                <div class="flex justify-between items-start">
-                    <div>
-                        <span class="text-xs text-gray-400 font-mono">19:30</span>
-                        <h3 class="text-lg font-bold">頌通酒家 Sornthong</h3>
-                        <div class="mt-2">
-                            <span class="tag tag-must">必點：咖哩螃蟹</span>
-                            <span class="tag">海鮮餐廳</span>
-                        </div>
-                    </div>
-                    <a href="https://maps.app.goo.gl" class="btn-nav">導覽</a>
+                    <a href="https://maps.app.goo.gl" class="btn-nav h-fit">導航</a>
                 </div>
             </div>
         </section>
 
-        <!-- 財務資訊區 (範例) -->
-        <section class="mt-10 pt-6 border-t border-gray-300">
-            <h2 class="text-lg font-bold mb-4 italic tracking-widest uppercase">Finance & Info</h2>
-            <div class="grid grid-cols-2 gap-4">
-                <div class="muji-card p-4 text-center">
-                    <p class="text-xs text-gray-500 uppercase">總預算/人</p>
-                    <p class="text-xl font-bold mt-1">26,934</p>
+        <!-- 2/17 初一 -->
+        <section>
+            <div class="day-header">
+                <h2 class="text-xl font-bold">02.17 <span class="text-sm">TUE / 初一</span></h2>
+                <span class="text-xs font-bold">☀️ 35°C</span>
+            </div>
+
+            <div class="muji-card">
+                <div class="flex justify-between">
+                    <div class="flex-1">
+                        <span class="time-label">08:00</span>
+                        <h3 class="font-bold">Factory Coffee</h3>
+                        <span class="tag tag-must">冠軍咖啡</span><span class="tag">鹹蛋可頌</span>
+                    </div>
+                    <a href="https://maps.app.goo.gl" class="btn-nav h-fit">導航</a>
                 </div>
-                <div class="muji-card p-4 text-center">
-                    <p class="text-xs text-gray-500 uppercase">預約 ID</p>
-                    <p class="text-xl font-bold mt-1">1031</p>
+            </div>
+
+            <div class="muji-card">
+                <div class="flex justify-between">
+                    <div class="flex-1">
+                        <span class="time-label">14:00</span>
+                        <h3 class="font-bold">曼谷當代藝術博物館 MOCA</h3>
+                        <span class="tag">打卡勝地</span>
+                    </div>
+                    <a href="https://maps.app.goo.gl" class="btn-nav h-fit">導航</a>
+                </div>
+            </div>
+
+            <div class="muji-card">
+                <div class="flex justify-between">
+                    <div class="flex-1">
+                        <span class="time-label">22:00</span>
+                        <h3 class="font-bold">Bar Us</h3>
+                        <span class="tag tag-must">Asia 50 Best Bar</span>
+                    </div>
+                    <a href="https://maps.app.goo.gl" class="btn-nav h-fit">導航</a>
                 </div>
             </div>
         </section>
+
+        <!-- 2/18 初二 -->
+        <section>
+            <div class="day-header">
+                <h2 class="text-xl font-bold">02.18 <span class="text-sm">WED / 初二</span></h2>
+                <span class="text-xs font-bold">☀️ 34°C</span>
+            </div>
+            <div class="muji-card bg-gray-100 border-l-4 border-black">
+                <p class="text-xs font-bold">🏨 更換飯店：Icon Dome Bangkok</p>
+            </div>
+            <div class="muji-card">
+                <div class="flex justify-between">
+                    <div class="flex-1">
+                        <span class="time-label">10:30</span>
+                        <h3 class="font-bold">大皇宮 + 玉佛寺</h3>
+                        <span class="tag">預約代號: 1031</span><span class="tag">正式服裝</span>
+                    </div>
+                    <a href="https://maps.app.goo.gl" class="btn-nav h-fit">導航</a>
+                </div>
+            </div>
+            <div class="muji-card">
+                <div class="flex justify-between">
+                    <div class="flex-1">
+                        <span class="time-label">14:00</span>
+                        <h3 class="font-bold">鄭王廟 Wat Arun</h3>
+                        <span class="tag tag-must">租泰服 150B</span>
+                    </div>
+                    <a href="https://maps.app.goo.gl" class="btn-nav h-fit">導航</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2/20 初四 - 大城 Ayutthaya -->
+        <section>
+            <div class="day-header">
+                <h2 class="text-xl font-bold">02.20 <span class="text-sm">FRI / 大城一日遊</span></h2>
+                <span class="text-xs font-bold">☀️ 36°C</span>
+            </div>
+            <div class="muji-card">
+                <div class="flex justify-between">
+                    <div class="flex-1">
+                        <span class="time-label">08:30</span>
+                        <h3 class="font-bold">大城火車站 Ayutthaya</h3>
+                        <p class="text-xs text-red-700 font-bold">攻略：回程火車票預訂 21:22</p>
+                    </div>
+                    <a href="https://maps.app.goo.gl" class="btn-nav h-fit">導航</a>
+                </div>
+            </div>
+            <div class="muji-card">
+                <div class="flex justify-between">
+                    <div class="flex-1">
+                        <span class="time-label">必吃</span>
+                        <h3 class="font-bold">糖絲捲餅 Roti Sai Mai</h3>
+                        <span class="tag tag-must">大城限定</span>
+                    </div>
+                    <a href="https://maps.app.goo.gl" class="btn-nav h-fit">導航</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2/22 伴手禮日 -->
+        <section>
+            <div class="day-header">
+                <h2 class="text-xl font-bold">02.22 <span class="text-sm">SUN / 伴手禮</span></h2>
+            </div>
+            <div class="muji-card">
+                <div class="flex justify-between">
+                    <div class="flex-1">
+                        <span class="time-label">19:30</span>
+                        <h3 class="font-bold">Makro Sathorn 萬客隆</h3>
+                        <span class="tag tag-must">5000B可退稅</span><span class="tag">必買伴手禮</span>
+                    </div>
+                    <a href="https://maps.app.goo.gl" class="btn-nav h-fit">導航</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- 財務預算總結 -->
+        <section class="mt-10 mb-20 p-6 bg-white border border-gray-200">
+            <h2 class="text-center font-bold tracking-widest border-b pb-2 mb-4 italic">TOTAL BUDGET</h2>
+            <div class="space-y-2 text-sm">
+                <div class="flex justify-between"><span>機票來回 (EVA)</span><span class="font-mono">46,124 TWD</span></div>
+                <div class="flex justify-between"><span>住宿總計 (SOVA+Icon)</span><span class="font-mono">14,825 TWD</span></div>
+                <div class="flex justify-between"><span>預估飲食+門票</span><span class="font-mono">35,288 TWD</span></div>
+                <div class="flex justify-between border-t pt-2 font-bold text-red-800">
+                    <span>人均總支出</span><span class="font-mono">26,934 TWD</span>
+                </div>
+            </div>
+        </section>
+
     </main>
 
-    <!-- Tab Bar -->
     <nav class="tab-bar">
-        <div class="text-center">
-            <div class="text-xl">🗓️</div>
-            <div class="text-[10px] uppercase font-bold text-red-800">Schedule</div>
-        </div>
-        <div class="text-center opacity-40">
-            <div class="text-xl">✈️</div>
-            <div class="text-[10px] uppercase font-bold">Flight</div>
-        </div>
-        <div class="text-center opacity-40">
-            <div class="text-xl">💰</div>
-            <div class="text-[10px] uppercase font-bold">Budget</div>
-        </div>
+        <div class="text-center"><div class="text-xl">🗓️</div><div class="text-[10px] uppercase font-bold text-red-800">Schedule</div></div>
+        <div class="text-center opacity-40"><div class="text-xl">✈️</div><div class="text-[10px] uppercase font-bold">Flight</div></div>
+        <div class="text-center opacity-40"><div class="text-xl">💰</div><div class="text-[10px] uppercase font-bold">Budget</div></div>
     </nav>
 
 </body>
