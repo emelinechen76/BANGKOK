@@ -1,432 +1,147 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-Hant-TW">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>2026 泰國全行程</title>
+    <title>Bangkok 2026 | 行程助手</title>
+    <link rel="manifest" href="data:application/json;base64,ewogICJkZWZhdWx0X2xvY2FsZSI6ICJ6aC1UVyIsCiAgIm5hbWUiOiAiQmFuZ2tvayAyMDI2IiwKICAic2hvcnRfbmFtZSI6ICJCS0sgMjAyNiIsCiAgInN0YXJ0X3VybCI6ICIuIiwKICAiZGlzcGxheSI6ICJzdGFuZGFsb25lIiwKICAiYmFja2dyb3VuZF9jb2xvciI6ICIjRkFGOEY3IiwKICAidGhlbWVfY29sb3IiOiAiIzI4MkMzNCIsCiAgImljb25zIjogW3sgInNyYyI6ICJodHRwczovL2ltZy5pY29uczhhZC5jb20vaWNvbnMvb3V0bGluZS9wbGFuZS5wbmciLCAic2l6ZXMiOiAiMTkyeDE5MiIsICJ0eXBlIjogImltYWdlL3BuZyIgfV0KfQ==">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com" rel="stylesheet">
     <style>
-        :root { --muji-bg: #F7F3EF; --muji-red: #7F2626; --muji-text: #333333; }
-        body { font-family: 'Noto Sans TC', sans-serif; background-color: var(--muji-bg); color: var(--muji-text); padding-bottom: 30px; }
-        .muji-card { background: #FFFFFF; border-radius: 2px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); margin-bottom: 12px; padding: 12px; }
-        .btn-nav { background-color: var(--muji-red); color: white; padding: 4px 10px; border-radius: 2px; font-size: 0.75rem; white-space: nowrap; }
-        .tag { font-size: 0.7rem; padding: 1px 6px; border: 1px solid var(--muji-text); margin-right: 4px; display: inline-block; margin-top: 4px; }
-        .tag-must { background-color: var(--muji-red); color: white; border: none; }
-        .day-content { display: none; padding: 16px; }
-        .day-content.active { display: block; }
-        .date-nav { display: flex; overflow-x: auto; background: white; border-bottom: 1px solid #ddd; position: sticky; top: 0; z-index: 50; }
-        .date-btn { flex: 0 0 auto; padding: 12px 15px; font-size: 0.8rem; border-bottom: 2px solid transparent; white-space: nowrap; }
-        .date-btn.active { border-bottom: 2px solid var(--muji-red); color: var(--muji-red); font-weight: bold; }
-        .info-row { font-size: 0.7rem; color: #888; font-family: monospace; margin-bottom: 2px; }
-        .note-text { font-size: 0.75rem; color: #666; margin-top: 4px; line-height: 1.4; }
+        body { font-family: 'Noto Sans TC', sans-serif; background-color: #fcfcfc; color: #333; }
+        .card { background: #fff; border-bottom: 1px solid #eee; transition: transform 0.2s; }
+        .tag { font-size: 10px; padding: 2px 6px; border-radius: 4px; margin-right: 4px; font-weight: bold; }
+        .tag-food { background: #fff1f0; color: #cf1322; }
+        .tag-spot { background: #f6ffed; color: #389e0d; }
+        .tag-trans { background: #e6f7ff; color: #096dd9; }
+        .nav-btn { background: #282c34; color: #fff; padding: 6px 12px; border-radius: 20px; font-size: 12px; }
+        .budget-badge { background: #f5f5f5; color: #8c8c8c; border-radius: 4px; padding: 2px 8px; font-size: 11px; }
+        .sticky-tabs { position: sticky; top: 0; background: rgba(255,255,255,0.9); backdrop-filter: blur(10px); z-index: 100; border-bottom: 1px solid #eee; }
     </style>
 </head>
-<body>
+<body class="pb-20">
 
-    <header class="p-4 bg-white border-b border-gray-200">
-        <h1 class="text-center text-lg font-bold tracking-widest uppercase">THAILAND 2026</h1>
+    <!-- Header -->
+    <header class="p-6 bg-white border-bottom">
+        <h1 class="text-2xl font-light tracking-widest text-gray-800">BANGKOK <span class="font-bold">2026</span></h1>
+        <p class="text-xs text-gray-400 mt-1">日式極簡行程助手 · 手機優先設計</p>
     </header>
 
-    <nav class="date-nav" id="dateNav">
-        <button class="date-btn active" onclick="showDay('d15')">2/15-16</button>
-        <button class="date-btn" onclick="showDay('d17')">2/17</button>
-        <button class="date-btn" onclick="showDay('d18')">2/18</button>
-        <button class="date-btn" onclick="showDay('d19')">2/19</button>
-        <button class="date-btn" onclick="showDay('d20')">2/20</button>
-        <button class="date-btn" onclick="showDay('d21')">2/21</button>
-        <button class="date-btn" onclick="showDay('d22')">2/22</button>
-    </nav>
+    <!-- Tabs -->
+    <div class="sticky-tabs flex overflow-x-auto whitespace-nowrap p-4 no-scrollbar gap-4 text-sm text-gray-500">
+        <a href="#day1" class="font-bold text-black border-b-2 border-black pb-1">D1 (2/15)</a>
+        <a href="#day2">D2 (2/16)</a>
+        <a href="#day3">D3 (2/17)</a>
+        <a href="#day4">D4 (2/18)</a>
+        <a href="#day5">D5 (2/19)</a>
+        <a href="#day6">D6 (2/20)</a>
+        <a href="#day7">D7 (2/21)</a>
+        <a href="#budget" class="text-orange-500">記帳本</a>
+    </div>
 
-    <div id="content">
-        <!-- 2/15-16 -->
-        <div id="d15" class="day-content active">
-            <div class="muji-card border-l-4 border-red-800">
-                <div class="info-row">23:40 | 交通 150 THB | 32km</div>
-                <h3 class="font-bold">EVA Air BR205 抵達 BKK</h3>
-                <p class="note-text">搭計程車至 SOVA Hotel | 機票 46124 TWD | 網卡 599 TWD | 住宿A 7045 TWD</p>
-            </div>
-            <div class="muji-card">
-                <div class="flex justify-between items-start">
-                    <div>
-                        <div class="info-row">08:00 | 40 THB | 2.8km</div>
-                        <h3 class="font-bold">Mae Varee 芒果糯米飯</h3>
-                        <p class="note-text">06:00-22:30 | 20 交通 | 芒果糯米飯</p>
-                    </div>
-                    <a href="https://maps.app.goo.gl" class="btn-nav">導航</a>
-                </div>
-            </div>
-            <div class="muji-card">
-                <div class="flex justify-between items-start">
-                    <div>
-                        <div class="info-row">08:00-15:00 | 50 THB | 0.6km</div>
-                        <h3 class="font-bold">東明海南雞飯 (60年老店)</h3>
-                    </div>
-                    <a href="https://maps.app.goo.gl" class="btn-nav">導航</a>
-                </div>
-            </div>
-            <div class="muji-card">
-                <div class="flex justify-between items-start">
-                    <div>
-                        <div class="info-row">08:30 | 40 THB | 0.7km</div>
-                        <h3 class="font-bold">Rung Rueang Pork Noodles</h3>
-                        <p class="note-text">搭 MUVMI 前往 DIB | 08:00-17:00</p>
-                    </div>
-                    <a href="https://maps.app.goo.gl" class="btn-nav">導航</a>
-                </div>
-            </div>
-            <div class="muji-card">
-                <div class="flex justify-between items-start">
-                    <div>
-                        <div class="info-row">10:00-19:00 | 20 THB | 3.0km</div>
-                        <h3 class="font-bold">Dib Bangkok / Flo Furniture</h3>
-                        <p class="note-text">不看展/外拍 | 家具雜貨 (Sukhumvit 36)</p>
-                    </div>
-                    <a href="https://maps.app.goo.gl" class="btn-nav">導航</a>
-                </div>
-            </div>
-            <div class="muji-card">
-                <div class="flex justify-between items-start">
-                    <div>
-                        <div class="info-row">11:30 | 300 THB | 2.3km</div>
-                        <h3 class="font-bold">中餐：Gedhawa 泰北菜</h3>
-                        <p class="note-text">11:30-14:00 | 20 交通 | SUPERRICH 換匯</p>
-                    </div>
-                    <a href="https://maps.app.goo.gl" class="btn-nav">導航</a>
-                </div>
-            </div>
-            <div class="muji-card">
-                <div class="flex justify-between items-start">
-                    <div>
-                        <div class="info-row">14:00 | 20 交通 | 1.1km</div>
-                        <h3 class="font-bold">四面佛 / Central World</h3>
-                        <p class="note-text">1F&5F 泰國設計/超市試吃 | 10:00-22:00</p>
-                    </div>
-                    <a href="https://maps.app.goo.gl" class="btn-nav">導航</a>
-                </div>
-            </div>
-            <div class="muji-card">
-                <div class="flex justify-between items-start">
-                    <div>
-                        <div class="info-row">19:30 | 400 THB | 5.2km</div>
-                        <h3 class="font-bold">晚餐：頌通酒家</h3>
-                        <p class="note-text">12:00-22:00 | 55 交通</p>
-                    </div>
-                    <a href="https://maps.app.goo.gl" class="btn-nav">導航</a>
-                </div>
-            </div>
-            <div class="muji-card">
-                <div class="flex justify-between items-start">
-                    <div>
-                        <div class="info-row">按摩 | 550 THB | 2.1km</div>
-                        <h3 class="font-bold">at ease MASSAGE & SPA</h3>
-                        <p class="note-text">09:00-23:00 | 1hr 按摩 | 20 交通</p>
-                    </div>
-                    <a href="https://maps.app.goo.gl" class="btn-nav">導航</a>
-                </div>
-            </div>
-        </div>
+    <!-- Main Content -->
+    <main class="p-4 space-y-8">
 
-        <!-- 2/17 -->
-        <div id="d17" class="day-content">
-            <div class="muji-card">
-                <div class="flex justify-between items-start">
-                    <div>
-                        <div class="info-row">08:00 | 160 THB | 6.8km</div>
-                        <h3 class="font-bold">Factory Coffee</h3>
-                        <p class="note-text">冠軍咖啡/鹹蛋可頌 | 60 交通</p>
-                    </div>
-                    <a href="https://maps.app.goo.gl" class="btn-nav">導航</a>
+        <!-- DAY 1 -->
+        <section id="day1">
+            <div class="flex justify-between items-end mb-4 border-l-4 border-black pl-3">
+                <div>
+                    <h2 class="text-xl font-bold">2/15 (一) 除夕</h2>
+                    <p class="text-xs text-gray-400">抵達曼谷 · BKK 機場</p>
+                </div>
+                <div class="text-right">
+                    <span class="text-xs">☀️ 31°C</span>
                 </div>
             </div>
-            <div class="muji-card">
-                <div class="flex justify-between items-start">
-                    <div>
-                        <div class="info-row">09:00 | 170 THB | 4.0km</div>
-                        <h3 class="font-bold">Ongtong Khaosoi 泰北麵</h3>
-                        <p class="note-text">米其林推薦 | 30 交通 | GUMP's Ari 拍照</p>
-                    </div>
-                    <a href="https://maps.app.goo.gl" class="btn-nav">導航</a>
-                </div>
-            </div>
-            <div class="muji-card">
-                <div class="flex justify-between items-start">
-                    <div>
-                        <div class="info-row">12:00 | 300 THB | 9.2km</div>
-                        <h3 class="font-bold">Zhong ped pa low 滷鴨</h3>
-                        <p class="note-text">09:00-04:00 | 潮州餐 | 50 交通</p>
-                    </div>
-                    <a href="https://maps.app.goo.gl" class="btn-nav">導航</a>
-                </div>
-            </div>
-            <div class="muji-card">
-                <div class="flex justify-between items-start">
-                    <div>
-                        <div class="info-row">14:00 | 300 THB | 7.6km</div>
-                        <h3 class="font-bold">曼谷當代藝術博物館 MOCA</h3>
-                        <p class="note-text">10:00-18:00 | 40 交通</p>
-                    </div>
-                    <a href="https://maps.app.goo.gl" class="btn-nav">導航</a>
-                </div>
-            </div>
-            <div class="muji-card">
-                <div class="flex justify-between items-start">
-                    <div>
-                        <div class="info-row">18:00 | 100 THB | 8.0km</div>
-                        <h3 class="font-bold">Liabduan 城堡夜市</h3>
-                        <p class="note-text">備案：火山排骨 | 40 交通</p>
-                    </div>
-                    <a href="https://maps.app.goo.gl" class="btn-nav">導航</a>
-                </div>
-            </div>
-            <div class="muji-card">
-                <div class="flex justify-between items-start">
-                    <div>
-                        <div class="info-row">22:00 | 550 THB | 15km</div>
-                        <h3 class="font-bold">Bar Us (2025 AsiaBar 4th)</h3>
-                        <p class="note-text">18:00-00:00 | 55 交通</p>
-                    </div>
-                    <a href="https://maps.app.goo.gl" class="btn-nav">導航</a>
-                </div>
-            </div>
-        </div>
 
-        <!-- 2/18 -->
-        <div id="d18" class="day-content">
-            <div class="muji-card bg-gray-50 border-l-4 border-black">
-                <h3 class="font-bold">更換飯店：Icon Dome Bangkok</h3>
-                <p class="note-text">07:00 出發 | 80 交通 | 住宿B 7780 TWD</p>
-            </div>
-            <div class="muji-card">
-                <div class="flex justify-between items-start">
+            <!-- Card -->
+            <div class="card p-4 rounded-xl mb-3 shadow-sm">
+                <div class="flex justify-between">
                     <div>
-                        <div class="info-row">10:30 | 600 THB | 1.3km</div>
-                        <h3 class="font-bold">大皇宮 + 玉佛寺</h3>
-                        <p class="note-text">大門口有中文導覽 | 20 交通</p>
+                        <span class="tag tag-trans">交通</span>
+                        <span class="text-sm font-bold">23:40 抵達 BKK 機場</span>
+                        <p class="text-xs text-gray-400 mt-1">長榮 BR205 · 搭乘計程車</p>
                     </div>
-                    <a href="https://maps.app.goo.gl" class="btn-nav">導航</a>
                 </div>
             </div>
-            <div class="muji-card">
-                <div class="flex justify-between items-start">
-                    <div>
-                        <div class="info-row">12:00 | 100 THB | 0.8km</div>
-                        <h3 class="font-bold">中餐：米其林豬腦湯</h3>
-                    </div>
-                    <a href="https://maps.app.goo.gl" class="btn-nav">導航</a>
-                </div>
-            </div>
-            <div class="muji-card">
-                <div class="flex justify-between items-start">
-                    <div>
-                        <div class="info-row">14:00 | 300 THB | 2.8km</div>
-                        <h3 class="font-bold">鄭王廟 Wat Arun</h3>
-                        <p class="note-text">搭船 5 THB | 租泰服 150 THB</p>
-                    </div>
-                    <a href="https://maps.app.goo.gl" class="btn-nav">導航</a>
-                </div>
-            </div>
-            <div class="muji-card">
-                <div class="flex justify-between items-start">
-                    <div>
-                        <div class="info-row">15:30 | 500 THB | 0.2km</div>
-                        <h3 class="font-bold">按摩：臥佛寺按摩學校</h3>
-                        <p class="note-text">108個缽除去煩惱 | 5 交通</p>
-                    </div>
-                    <a href="https://maps.app.goo.gl" class="btn-nav">導航</a>
-                </div>
-            </div>
-        </div>
 
-        <!-- 2/19 -->
-        <div id="d19" class="day-content">
-            <div class="muji-card">
+            <div class="card p-4 rounded-xl mb-3 shadow-sm border-l-4 border-red-200">
                 <div class="flex justify-between items-start">
                     <div>
-                        <div class="info-row">09:30 | 50 THB | 12km</div>
-                        <h3 class="font-bold">Easternglass 玻璃工廠</h3>
+                        <span class="tag tag-food">必吃美食</span>
+                        <span class="text-sm font-bold">肯德基雞米花</span>
+                        <p class="text-xs text-gray-500 mt-1">攻略：泰國限定口味，宵夜必備。</p>
                     </div>
-                    <a href="https://maps.app.goo.gl" class="btn-nav">導航</a>
+                    <a href="https://maps.app.goo.gl" class="nav-btn">導航</a>
                 </div>
             </div>
-            <div class="muji-card">
-                <div class="flex justify-between items-start">
-                    <div>
-                        <div class="info-row">11:00 | 60 THB | 10km</div>
-                        <h3 class="font-bold">Sunee 脆皮豬肉飯</h3>
-                        <p class="note-text">李寶玉韭菜粿 | 椰奶布丁</p>
-                    </div>
-                    <a href="https://maps.app.goo.gl" class="btn-nav">導航</a>
-                </div>
-            </div>
-            <div class="muji-card">
-                <div class="flex justify-between items-start">
-                    <div>
-                        <div class="info-row">噗火車站 | 20 交通</div>
-                        <h3 class="font-bold">水門寺大佛 (Wat Paknam)</h3>
-                        <p class="note-text">金孫暴富攻略拍攝點 | 琉璃天花板</p>
-                    </div>
-                    <a href="https://maps.app.goo.gl" class="btn-nav">導航</a>
-                </div>
-            </div>
-            <div class="muji-card">
-                <div class="flex justify-between items-start">
-                    <div>
-                        <div class="info-row">18:00 | 50 THB | 2.5km</div>
-                        <h3 class="font-bold">晚餐：Pad Thai Narok Taek</h3>
-                        <p class="note-text">鐵板趴太 | 螃蟹粉絲煲 | 30 交通</p>
-                    </div>
-                    <a href="https://maps.app.goo.gl" class="btn-nav">導航</a>
-                </div>
-            </div>
-        </div>
+        </section>
 
-        <!-- 2/20 -->
-        <div id="d20" class="day-content">
-            <div class="muji-card bg-red-50">
-                <h3 class="font-bold">大城一日遊 Ayutthaya</h3>
-                <p class="note-text">ID: 1031 | 21:22 回程火車 | 60 交通</p>
-            </div>
-            <div class="muji-card">
-                <div class="flex justify-between items-start">
-                    <div>
-                        <div class="info-row">09:00 | 220 THB | 4.5km</div>
-                        <h3 class="font-bold">瑪哈泰寺 (樹中佛)</h3>
-                        <p class="note-text">買套票 | 拉嘉布拉那寺地窖</p>
-                    </div>
-                    <a href="https://maps.app.goo.gl" class="btn-nav">導航</a>
+        <!-- DAY 2 (精簡版範例) -->
+        <section id="day2">
+            <div class="flex justify-between items-end mb-4 border-l-4 border-black pl-3">
+                <div>
+                    <h2 class="text-xl font-bold">2/16 (二) 初一</h2>
+                    <p class="text-xs text-gray-400">Sukhumvit 探索</p>
                 </div>
+                <div class="text-right text-xs">☁️ 29°C</div>
             </div>
-            <div class="muji-card">
-                <div class="flex justify-between items-start">
-                    <div>
-                        <div class="info-row">12:00 | 100 THB | 0.5km</div>
-                        <h3 class="font-bold">Pa Lek 米其林船麵</h3>
-                    </div>
-                    <a href="https://maps.app.goo.gl" class="btn-nav">導航</a>
-                </div>
-            </div>
-            <div class="muji-card">
-                <div class="flex justify-between items-start">
-                    <div>
-                        <div class="info-row">13:00 | 150 THB | 糖絲咖啡</div>
-                        <h3 class="font-bold">柴瓦塔那蘭寺</h3>
-                        <p class="note-text">泰國版小吳哥窟 | 租泰服 150</p>
-                    </div>
-                    <a href="https://maps.app.goo.gl" class="btn-nav">導航</a>
-                </div>
-            </div>
-            <div class="muji-card">
-                <div class="flex justify-between items-start">
-                    <div>
-                        <div class="info-row">19:00 | 200 THB | 1.4km</div>
-                        <h3 class="font-bold">大城聲光表演/古幣夜市</h3>
-                        <p class="note-text">必吃糖絲捲餅 (Roti Sai Mai)</p>
-                    </div>
-                    <a href="https://maps.app.goo.gl" class="btn-nav">導航</a>
-                </div>
-            </div>
-        </div>
 
-        <!-- 2/21 -->
-        <div id="d21" class="day-content">
-            <div class="muji-card">
+            <div class="card p-4 rounded-xl mb-3 border-l-4 border-orange-200">
                 <div class="flex justify-between items-start">
                     <div>
-                        <div class="info-row">09:00 | 70 THB | 6.0km</div>
-                        <h3 class="font-bold">早餐：豬肉粥/紅拉洽蚵仔煎</h3>
-                        <p class="note-text">BEANS Coffee Roaster (Dirty)</p>
+                        <span class="tag tag-food">必點菜單</span>
+                        <span class="text-sm font-bold">Mae Varee 芒果糯米飯</span>
+                        <p class="text-xs text-gray-500 mt-1 italic">「必點：經典芒果糯米、米其林推薦」</p>
                     </div>
-                    <a href="https://maps.app.goo.gl" class="btn-nav">導航</a>
+                    <a href="https://maps.app.goo.gl" class="nav-btn">導航</a>
                 </div>
             </div>
-            <div class="muji-card">
-                <div class="flex justify-between items-start">
-                    <div>
-                        <div class="info-row">12:30 | 300 THB | 75km</div>
-                        <h3 class="font-bold">Sawai Seafood (青檸鯖魚)</h3>
-                        <p class="note-text">250 交通 (計程車前往安帕瓦)</p>
-                    </div>
-                    <a href="https://maps.app.goo.gl" class="btn-nav">導航</a>
-                </div>
-            </div>
-            <div class="muji-card">
-                <div class="flex justify-between items-start">
-                    <div>
-                        <div class="info-row">14:00 | 30 THB | 4.2km</div>
-                        <h3 class="font-bold">美功鐵道市場</h3>
-                    </div>
-                    <a href="https://maps.app.goo.gl" class="btn-nav">導航</a>
-                </div>
-            </div>
-            <div class="muji-card">
-                <div class="flex justify-between items-start">
-                    <div>
-                        <div class="info-row">18:00 | 50 THB | 9.3km</div>
-                        <h3 class="font-bold">安帕瓦水上市場 (螢火蟲)</h3>
-                        <p class="note-text">椰糖工廠 | 玫瑰花供奉</p>
-                    </div>
-                    <a href="https://maps.app.goo.gl" class="btn-nav">導航</a>
-                </div>
-            </div>
-            <div class="muji-card">
-                <div class="flex justify-between items-start">
-                    <div>
-                        <div class="info-row">晚餐 | 100 THB | 唐人街</div>
-                        <h3 class="font-bold">唐人街夜市</h3>
-                        <p class="note-text">珍多椰奶冰 | 烤麵包 | 粿條店</p>
-                    </div>
-                    <a href="https://maps.app.goo.gl" class="btn-nav">導航</a>
-                </div>
-            </div>
-        </div>
 
-        <!-- 2/22 -->
-        <div id="d22" class="day-content">
-            <div class="muji-card">
+            <div class="card p-4 rounded-xl mb-3">
                 <div class="flex justify-between items-start">
                     <div>
-                        <div class="info-row">09:00 | 120 THB | 0.7km</div>
-                        <h3 class="font-bold">早餐：咖哩餃/泰國紅茶</h3>
-                        <p class="note-text">大象壁畫 | 手工泰奶可樂</p>
+                        <span class="tag tag-spot">景點</span>
+                        <span class="text-sm font-bold">曼谷當代藝術館 (MOCA)</span>
+                        <p class="text-xs text-gray-500 mt-1">攻略：泰國最美博物館，必看白色雕塑區。</p>
                     </div>
-                    <a href="https://maps.app.goo.gl" class="btn-nav">導航</a>
+                    <a href="https://maps.app.goo.gl" class="nav-btn">導航</a>
                 </div>
             </div>
-            <div class="muji-card">
-                <div class="flex justify-between items-start">
-                    <div>
-                        <div class="info-row">12:00 | 150 THB</div>
-                        <h3 class="font-bold">中餐：Urai 滷鵝 (10-13點)</h3>
-                    </div>
-                    <a href="https://maps.app.goo.gl" class="btn-nav">導航</a>
+        </section>
+
+        <!-- Budget Summary -->
+        <section id="budget" class="bg-gray-50 p-6 rounded-3xl">
+            <h2 class="text-lg font-bold mb-4">📊 記帳預算表 (1人/TWD)</h2>
+            <div class="space-y-4">
+                <div class="flex justify-between border-b pb-2">
+                    <span class="text-sm text-gray-500">2/15 預算</span>
+                    <span class="font-bold text-sm">355 (交通) + 1610 (雜支)</span>
+                </div>
+                <div class="flex justify-between border-b pb-2">
+                    <span class="text-sm text-gray-500">2/16 預算</span>
+                    <span class="font-bold text-sm">310 (交通) + 1700 (雜支)</span>
+                </div>
+                <div class="flex justify-between bg-black text-white p-4 rounded-xl">
+                    <span>預估總計</span>
+                    <span class="font-bold">NT$ 9,027</span>
                 </div>
             </div>
-            <div class="muji-card">
-                <div class="flex justify-between items-start">
-                    <div>
-                        <div class="info-row">19:30 | 伴手禮 | 3.6km</div>
-                        <h3 class="font-bold">Makro Sathorn 萬客隆</h3>
-                        <p class="note-text">皇家超市 (Golden Place) | 5000可退稅</p>
-                    </div>
-                    <a href="https://maps.app.goo.gl" class="btn-nav">導航</a>
-                </div>
-            </div>
-            <div class="muji-card border-l-4 border-red-800">
-                <div class="info-row">23:00 | 150 THB | 36km</div>
-                <h3 class="font-bold">Suvarnabhumi 機場 (BR206)</h3>
-                <p class="note-text">2:15 起飛 | 肯德基雞米花</p>
-            </div>
-        </div>
+        </section>
+
+    </main>
+
+    <!-- Floating Action Button -->
+    <div class="fixed bottom-6 right-6">
+        <button class="bg-black text-white w-12 h-12 rounded-full shadow-lg flex items-center justify-center text-xl">＋</button>
     </div>
 
     <script>
-        function showDay(dayId) {
-            document.querySelectorAll('.day-content').forEach(el => el.classList.remove('active'));
-            document.getElementById(dayId).classList.add('active');
-            document.querySelectorAll('.date-btn').forEach(btn => btn.classList.remove('active'));
-            event.currentTarget.classList.add('active');
-            window.scrollTo(0, 0);
+        // PWA Service Worker Registration
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js').catch(err => console.log('SW registration failed'));
+            });
         }
     </script>
 </body>
