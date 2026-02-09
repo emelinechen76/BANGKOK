@@ -7,84 +7,65 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com" rel="stylesheet">
     <style>
-        body { font-family: 'Noto Sans TC', sans-serif; background-color: #F8F9FA; color: #333; -webkit-font-smoothing: antialiased; }
+        body { font-family: 'Noto Sans TC', sans-serif; background-color: #F7F7F7; color: #333; -webkit-font-smoothing: antialiased; }
         .day-section { display: none; }
         .day-section.active { display: block; }
-        .card { background: #fff; border-radius: 16px; padding: 16px; margin-bottom: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); border: 1px solid #f0f0f0; transition: 0.3s; }
-        .tag { font-size: 10px; padding: 2px 8px; border-radius: 6px; font-weight: bold; margin-right: 6px; text-transform: uppercase; }
+        .card { background: #fff; border-radius: 12px; padding: 14px; margin-bottom: 10px; border: 1px solid #EDEDED; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
+        .tag { font-size: 10px; padding: 2px 6px; border-radius: 4px; font-weight: bold; margin-right: 4px; }
         .tag-food { background: #FFF1F0; color: #CF1322; }
         .tag-spot { background: #F6FFED; color: #389E0D; }
+        .tag-michelin { background: #FFFBE6; color: #D48806; border: 1px solid #FFE58F; }
         .tag-trans { background: #E6F7FF; color: #096DD9; }
         .tag-stay { background: #F9F0FF; color: #722ED1; }
-        .tag-michelin { background: #FFFBE6; color: #D48806; border: 1px solid #FFE58F; }
-        .nav-btn { background: #1A1A1A; color: #fff; padding: 8px 16px; border-radius: 20px; font-size: 11px; font-weight: 600; display: inline-flex; align-items: center; }
-        .tab-btn { flex-shrink: 0; padding: 12px 20px; font-size: 14px; color: #8C8C8C; border-bottom: 3px solid transparent; transition: 0.3s; }
-        .tab-btn.active { color: #000; border-bottom: 3px solid #000; font-weight: 800; }
-        .no-scrollbar::-webkit-scrollbar { display: none; }
-        .time-label { font-size: 11px; font-weight: 700; color: #AEAEAE; margin-bottom: 4px; display: block; }
+        .nav-btn { background: #282C34; color: #fff; padding: 6px 12px; border-radius: 20px; font-size: 11px; font-weight: bold; }
+        .tab-btn { flex-shrink: 0; padding: 10px 15px; font-size: 13px; color: #888; border-bottom: 2px solid transparent; transition: 0.3s; }
+        .tab-btn.active { color: #000; border-bottom: 2px solid #000; font-weight: bold; }
+        .sticky-nav { position: sticky; top: 0; background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); z-index: 100; border-bottom: 1px solid #EEE; }
     </style>
 </head>
 <body class="pb-24">
 
-    <!-- Header & Weather -->
-    <header class="p-6 bg-white sticky top-0 z-50 border-b border-gray-100 flex justify-between items-end">
+    <!-- Header -->
+    <header class="p-5 bg-white flex justify-between items-end">
         <div>
-            <h1 class="text-2xl font-light tracking-tighter text-gray-900">BANGKOK <span class="font-bold">2026</span></h1>
-            <p class="text-[10px] text-gray-400 uppercase tracking-[0.2em]">Lunar New Year Trip</p>
+            <h1 class="text-xl font-bold tracking-tighter">BKK 2026</h1>
+            <p class="text-[10px] text-gray-400">曼谷 7 頁完整行程</p>
         </div>
-        <div class="text-right pb-1">
-            <div id="weather-icon" class="text-xl">☀️</div>
-            <span class="text-xs font-bold text-gray-800">32°C / 26°C</span>
-        </div>
+        <div class="text-right"><span class="text-xs font-bold">☀️ 32°C</span></div>
     </header>
 
-    <!-- Day Navigation -->
-    <nav class="flex overflow-x-auto whitespace-nowrap bg-white px-2 no-scrollbar border-b border-gray-50 sticky top-[81px] z-40">
-        <button onclick="showDay('d1')" class="tab-btn active" id="btn-d1">2/15 除夕</button>
-        <button onclick="showDay('d2')" class="tab-btn" id="btn-d2">2/16 初一</button>
-        <button onclick="showDay('d3')" class="tab-btn" id="btn-d3">2/17 初二</button>
-        <button onclick="showDay('d4')" class="tab-btn" id="btn-d4">2/18 初三</button>
-        <button onclick="showDay('d5')" class="tab-btn" id="btn-d5">2/19 初四</button>
-        <button onclick="showDay('d6')" class="tab-btn" id="btn-d6">2/20 初五</button>
-        <button onclick="showDay('d7')" class="tab-btn" id="btn-d7">2/21 初六</button>
+    <!-- 導覽列 -->
+    <nav class="sticky-nav flex overflow-x-auto whitespace-nowrap px-2 no-scrollbar">
+        <button onclick="showDay('d1')" class="tab-btn active" id="btn-d1">2/15-16</button>
+        <button onclick="showDay('d2')" class="tab-btn" id="btn-d2">2/17</button>
+        <button onclick="showDay('d3')" class="tab-btn" id="btn-d3">2/18</button>
+        <button onclick="showDay('d4')" class="tab-btn" id="btn-d4">2/19</button>
+        <button onclick="showDay('d5')" class="tab-btn" id="btn-d5">2/20</button>
+        <button onclick="showDay('d6')" class="tab-btn" id="btn-d6">2/21</button>
+        <button onclick="showDay('d7')" class="tab-btn" id="btn-d7">2/22</button>
         <button onclick="showDay('budget')" class="tab-btn text-orange-500" id="btn-budget">記帳本</button>
     </nav>
 
-    <main class="p-4" id="main-content">
-
-        <!-- Day 1: 2/15-2/16 (除夕) -->
+    <main class="p-4">
+        <!-- DAY 1 (2/15-2/16) -->
         <section id="d1" class="day-section active">
-            <div class="time-label">23:40 ARRIVAL</div>
-            <div class="card border-l-4 border-blue-500">
+            <h2 class="text-xs font-bold text-gray-400 mb-3 px-1 uppercase tracking-widest">Day 1: 除夕 抵達曼谷</h2>
+            <div class="card border-l-4 border-purple-400">
                 <div class="flex justify-between items-start">
                     <div>
-                        <span class="tag tag-trans">EVA AIR BR205</span>
-                        <h3 class="text-md font-bold mt-1">抵達 BKK 機場</h3>
-                        <p class="text-xs text-gray-500 mt-2">交通費預算: 355 TWD | 搭乘計程車</p>
-                    </div>
-                </div>
-            </div>
-            <div class="time-label">ACCOMMODATION</div>
-            <div class="card border-l-4 border-purple-500">
-                <div class="flex justify-between items-start">
-                    <div>
-                        <span class="tag tag-stay">2/15-2/18</span>
-                        <h3 class="text-md font-bold mt-1">SOVA Hotel Bangkok</h3>
-                        <p class="text-xs text-gray-500 mt-2"><b>必吃：</b>肯德基雞米花 (Sukhumvit 22)</p>
+                        <span class="tag tag-stay">住宿</span>
+                        <h3 class="text-sm font-bold mt-1">SOVA Hotel Bangkok</h3>
+                        <p class="text-[11px] text-gray-500 mt-1"><b>攻略：</b>宵夜必吃肯德基雞米花</p>
                     </div>
                     <a href="https://maps.app.goo.gl" class="nav-btn">導航</a>
                 </div>
             </div>
-        </section>
-
-        <!-- Day 2: 2/16 (初一) -->
-        <section id="d2" class="day-section">
             <div class="card">
                 <div class="flex justify-between items-start">
                     <div>
                         <span class="tag tag-food">早餐</span>
-                        <h3 class="text-md font-bold mt-1">Mae Varee 芒果糯米飯</h3>
-                        <p class="text-xs text-gray-500 mt-1">06:00-22:30 | 預算: 20 TWD</p>
+                        <h3 class="text-sm font-bold mt-1">Mae Varee 芒果糯米飯</h3>
+                        <p class="text-[11px] text-gray-500 mt-1">06:00-22:30 | <b>必點：</b>三色糯米</p>
                     </div>
                     <a href="https://maps.app.goo.gl" class="nav-btn">導航</a>
                 </div>
@@ -92,53 +73,24 @@
             <div class="card">
                 <div class="flex justify-between items-start">
                     <div>
-                        <span class="tag tag-food">午餐</span>
-                        <h3 class="text-md font-bold mt-1">Gedhawa 泰北菜</h3>
-                        <p class="text-xs text-gray-500 mt-1">11:30-14:00 | 推薦清邁麵/泰北菜</p>
-                    </div>
-                    <a href="https://maps.app.goo.gl" class="nav-btn">導航</a>
-                </div>
-            </div>
-            <div class="card">
-                <div class="flex justify-between items-start">
-                    <div>
-                        <span class="tag tag-spot">購物/參拜</span>
-                        <h3 class="text-md font-bold mt-1">四面佛 / Central World</h3>
-                        <p class="text-xs text-gray-500 mt-1">10:00-22:00 | 1F&5F泰國設計/超市試吃</p>
-                    </div>
-                    <a href="https://maps.app.goo.gl" class="nav-btn">導航</a>
-                </div>
-            </div>
-            <div class="card">
-                <div class="flex justify-between items-start">
-                    <div>
-                        <span class="tag tag-food">晚餐</span>
-                        <h3 class="text-md font-bold mt-1">頌通酒家 (Sornthong)</h3>
-                        <p class="text-xs text-gray-500 mt-1">12:00-22:00 | 泰式海鮮</p>
+                        <span class="tag tag-food">泰北菜</span>
+                        <h3 class="text-sm font-bold mt-1">Gedhawa</h3>
+                        <p class="text-[11px] text-gray-500 mt-1">11:30-14:00 | 冠軍咖啡推薦</p>
                     </div>
                     <a href="https://maps.app.goo.gl" class="nav-btn">導航</a>
                 </div>
             </div>
         </section>
 
-        <!-- Day 3: 2/17 (初二) -->
-        <section id="d3" class="day-section">
-            <div class="card">
-                <div class="flex justify-between items-start">
-                    <div>
-                        <span class="tag tag-food">咖啡</span>
-                        <h3 class="text-md font-bold mt-1">Factory Coffee - BKK</h3>
-                        <p class="text-xs text-gray-500 mt-1">08:00-15:30 | <b>必點：</b>冠軍咖啡/鹹蛋可頌</p>
-                    </div>
-                    <a href="https://maps.app.goo.gl" class="nav-btn">導航</a>
-                </div>
-            </div>
-            <div class="card">
+        <!-- DAY 2 (2/17) -->
+        <section id="d2" class="day-section">
+            <h2 class="text-xs font-bold text-gray-400 mb-3 px-1 uppercase tracking-widest">Day 2: 初一 米其林之旅</h2>
+            <div class="card border-l-4 border-yellow-400">
                 <div class="flex justify-between items-start">
                     <div>
                         <span class="tag tag-michelin">米其林</span>
-                        <h3 class="text-md font-bold mt-1">Ongtong Khaosoi</h3>
-                        <p class="text-xs text-gray-500 mt-1">09:00-20:30 | 泰北麵名店</p>
+                        <h3 class="text-sm font-bold mt-1">Ongtong Khaosoi</h3>
+                        <p class="text-[11px] text-gray-500 mt-1">09:00-20:30 | 必吃泰北麵</p>
                     </div>
                     <a href="https://maps.app.goo.gl" class="nav-btn">導航</a>
                 </div>
@@ -147,23 +99,23 @@
                 <div class="flex justify-between items-start">
                     <div>
                         <span class="tag tag-spot">景點</span>
-                        <h3 class="text-md font-bold mt-1">MOCA 曼谷當代藝術館</h3>
-                        <p class="text-xs text-gray-500 mt-1">10:00-18:00 | 預算: 300 TWD</p>
+                        <h3 class="text-sm font-bold mt-1">MOCA 曼谷當代藝術館</h3>
+                        <p class="text-[11px] text-gray-500 mt-1">10:00-18:00 | 預算 300 TWD</p>
                     </div>
                     <a href="https://maps.app.goo.gl" class="nav-btn">導航</a>
                 </div>
             </div>
         </section>
 
-        <!-- Day 6: 2/20 (初五) - 大城 Ayutthaya -->
-        <section id="d6" class="day-section">
-            <div class="time-label">08:30 TRAIN TO AYUTTHAYA</div>
+        <!-- DAY 5 (2/20) 大城行程 -->
+        <section id="d5" class="day-section">
+            <h2 class="text-xs font-bold text-gray-400 mb-3 px-1 uppercase tracking-widest">Day 5: 初四 大城歷史探索</h2>
             <div class="card border-l-4 border-red-500">
                 <div class="flex justify-between items-start">
                     <div>
                         <span class="tag tag-spot">世界遺產</span>
-                        <h3 class="text-md font-bold mt-1">瑪哈泰寺 (樹中佛陀)</h3>
-                        <p class="text-xs text-gray-500 mt-1">08:30-18:30 | <b>攻略：</b>建議買套票</p>
+                        <h3 class="text-sm font-bold mt-1">瑪哈泰寺 (樹中佛陀)</h3>
+                        <p class="text-[11px] text-gray-500 mt-1"><b>預約：</b>回程火車 21:22</p>
                     </div>
                     <a href="https://maps.app.goo.gl" class="nav-btn">導航</a>
                 </div>
@@ -171,88 +123,41 @@
             <div class="card">
                 <div class="flex justify-between items-start">
                     <div>
-                        <span class="tag tag-food">午餐</span>
-                        <h3 class="text-md font-bold mt-1">Pa Lek Boat Noodle</h3>
-                        <p class="text-xs text-gray-500 mt-1">08:30-17:30 | 米其林三代船麵</p>
-                    </div>
-                    <a href="https://maps.app.goo.gl" class="nav-btn">導航</a>
-                </div>
-            </div>
-            <div class="card">
-                <div class="flex justify-between items-start">
-                    <div>
-                        <span class="tag tag-spot">體驗</span>
-                        <h3 class="text-md font-bold mt-1">柴瓦塔那蘭寺 (租泰服)</h3>
-                        <p class="text-xs text-gray-500 mt-1">租泰服預算: 150 TWD | 泰國版小吳哥窟</p>
-                    </div>
-                    <a href="https://maps.app.goo.gl" class="nav-btn">導航</a>
-                </div>
-            </div>
-            <div class="card border-l-4 border-orange-400">
-                <div class="flex justify-between items-start">
-                    <div>
-                        <span class="tag tag-food">必買</span>
-                        <h3 class="text-md font-bold mt-1">糖絲捲餅 (Roti Sai Mai)</h3>
-                        <p class="text-xs text-gray-500 mt-1">05:30-19:00 | 大城必吃特產</p>
+                        <span class="tag tag-food">特產</span>
+                        <h3 class="text-sm font-bold mt-1">糖絲捲餅 Roti Sai Mai</h3>
+                        <p class="text-[11px] text-gray-500 mt-1">大城必吃甜點</p>
                     </div>
                     <a href="https://maps.app.goo.gl" class="nav-btn">導航</a>
                 </div>
             </div>
         </section>
 
-        <!-- Budget Summary -->
+        <!-- 記帳預算表 -->
         <section id="budget" class="day-section">
-            <h2 class="text-lg font-bold mb-6 px-1">📊 行程預算總覽 (TWD)</h2>
-            <div class="space-y-3">
-                <div class="bg-white p-4 rounded-xl border flex justify-between">
-                    <span class="text-sm text-gray-500">2/15-16 除夕/初一</span>
-                    <span class="font-bold">NT$ 1,965</span>
+            <h2 class="text-lg font-bold mb-4">💰 預算統計 (1人/TWD)</h2>
+            <div class="bg-white p-4 rounded-xl border">
+                <table class="w-full text-xs text-left">
+                    <tr class="border-b"><th class="py-2">日期</th><th>交通</th><th>餐雜</th></tr>
+                    <tr class="border-b"><td class="py-2">2/15-16</td><td>355</td><td>1610</td></tr>
+                    <tr class="border-b"><td class="py-2">2/17</td><td>310</td><td>1700</td></tr>
+                    <tr class="border-b"><td class="py-2">2/18</td><td>225</td><td>1992</td></tr>
+                    <tr class="border-b"><td class="py-2">2/20</td><td>545</td><td>870</td></tr>
+                </table>
+                <div class="mt-4 pt-4 border-t flex justify-between font-bold">
+                    <span>估計總費用</span>
+                    <span class="text-xl">NT$ 9,000+</span>
                 </div>
-                <div class="bg-white p-4 rounded-xl border flex justify-between">
-                    <span class="text-sm text-gray-500">2/17 初二</span>
-                    <span class="font-bold">NT$ 2,010</span>
-                </div>
-                <div class="bg-white p-4 rounded-xl border flex justify-between">
-                    <span class="text-sm text-gray-500">2/18 初三</span>
-                    <span class="font-bold">NT$ 2,217</span>
-                </div>
-                <div class="bg-white p-4 rounded-xl border flex justify-between">
-                    <span class="text-sm text-gray-500">2/20 初五 (大城)</span>
-                    <span class="font-bold">NT$ 1,415</span>
-                </div>
-            </div>
-            <div class="mt-8 bg-black text-white p-8 rounded-3xl text-center shadow-xl">
-                <p class="text-xs uppercase tracking-widest opacity-60 mb-2">Estimated Total</p>
-                <p class="text-4xl font-black">NT$ 9,337</p>
-                <p class="text-[10px] mt-4 opacity-40">不含國際機票與購物費用</p>
             </div>
         </section>
-
     </main>
 
-    <!-- Bottom Navigation Bar -->
-    <div class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-100 p-4 flex justify-around items-center z-50">
-        <button onclick="showDay('d1')" class="text-xs flex flex-col items-center gap-1 text-gray-400 active:text-black">
-            <span class="text-lg">🗓️</span> 行程
-        </button>
-        <button onclick="showDay('budget')" class="text-xs flex flex-col items-center gap-1 text-gray-400 active:text-black">
-            <span class="text-lg">💰</span> 記帳
-        </button>
-    </div>
-
     <script>
-        function showDay(dayId) {
-            // 切換 Section
-            document.querySelectorAll('.day-section').forEach(el => el.classList.remove('active'));
-            document.getElementById(dayId).classList.add('active');
-            
-            // 切換 Tab 樣式
-            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-            const activeBtn = document.getElementById('btn-' + dayId);
-            if(activeBtn) activeBtn.classList.add('active');
-
-            // 滾動到頂部
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+        function showDay(id) {
+            document.querySelectorAll('.day-section').forEach(s => s.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById('btn-'+id).classList.add('active');
+            window.scrollTo(0,0);
         }
     </script>
 </body>
