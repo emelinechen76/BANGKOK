@@ -3,146 +3,182 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Bangkok 2026 | 行程助手</title>
-    <link rel="manifest" href="data:application/json;base64,ewogICJkZWZhdWx0X2xvY2FsZSI6ICJ6aC1UVyIsCiAgIm5hbWUiOiAiQmFuZ2tvayAyMDI2IiwKICAic2hvcnRfbmFtZSI6ICJCS0sgMjAyNiIsCiAgInN0YXJ0X3VybCI6ICIuIiwKICAiZGlzcGxheSI6ICJzdGFuZGFsb25lIiwKICAiYmFja2dyb3VuZF9jb2xvciI6ICIjRkFGOEY3IiwKICAidGhlbWVfY29sb3IiOiAiIzI4MkMzNCIsCiAgImljb25zIjogW3sgInNyYyI6ICJodHRwczovL2ltZy5pY29uczhhZC5jb20vaWNvbnMvb3V0bGluZS9wbGFuZS5wbmciLCAic2l6ZXMiOiAiMTkyeDE5MiIsICJ0eXBlIjogImltYWdlL3BuZyIgfV0KfQ==">
+    <title>BKK 2026 行程助手</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com" rel="stylesheet">
     <style>
-        body { font-family: 'Noto Sans TC', sans-serif; background-color: #fcfcfc; color: #333; }
-        .card { background: #fff; border-bottom: 1px solid #eee; transition: transform 0.2s; }
-        .tag { font-size: 10px; padding: 2px 6px; border-radius: 4px; margin-right: 4px; font-weight: bold; }
+        body { font-family: 'Noto Sans TC', sans-serif; background-color: #fafafa; color: #333; -webkit-font-smoothing: antialiased; }
+        .day-section { display: none; }
+        .day-section.active { display: block; }
+        .card { background: #fff; border-radius: 12px; padding: 16px; margin-bottom: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); border: 1px solid #f0f0f0; }
+        .tag { font-size: 10px; padding: 2px 8px; border-radius: 4px; font-weight: bold; margin-right: 6px; }
         .tag-food { background: #fff1f0; color: #cf1322; }
         .tag-spot { background: #f6ffed; color: #389e0d; }
         .tag-trans { background: #e6f7ff; color: #096dd9; }
-        .nav-btn { background: #282c34; color: #fff; padding: 6px 12px; border-radius: 20px; font-size: 12px; }
-        .budget-badge { background: #f5f5f5; color: #8c8c8c; border-radius: 4px; padding: 2px 8px; font-size: 11px; }
-        .sticky-tabs { position: sticky; top: 0; background: rgba(255,255,255,0.9); backdrop-filter: blur(10px); z-index: 100; border-bottom: 1px solid #eee; }
+        .tag-stay { background: #f9f0ff; color: #722ed1; }
+        .nav-btn { background: #282c34; color: #fff; padding: 6px 14px; border-radius: 18px; font-size: 11px; font-weight: 500; }
+        .tab-btn { flex-shrink: 0; padding: 8px 16px; font-size: 14px; color: #8c8c8c; border-bottom: 2px solid transparent; transition: 0.3s; }
+        .tab-btn.active { color: #000; border-bottom: 2px solid #000; font-weight: bold; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
     </style>
 </head>
-<body class="pb-20">
+<body class="pb-24">
 
     <!-- Header -->
-    <header class="p-6 bg-white border-bottom">
-        <h1 class="text-2xl font-light tracking-widest text-gray-800">BANGKOK <span class="font-bold">2026</span></h1>
-        <p class="text-xs text-gray-400 mt-1">日式極簡行程助手 · 手機優先設計</p>
+    <header class="p-6 bg-white sticky top-0 z-50 border-b border-gray-100 flex justify-between items-center">
+        <div>
+            <h1 class="text-xl font-light tracking-tighter text-gray-800">BKK <span class="font-bold">2026</span></h1>
+            <p class="text-[10px] text-gray-400 uppercase tracking-widest">Itinerary Assistant</p>
+        </div>
+        <div class="text-right">
+            <span id="current-weather" class="text-xs font-medium">☀️ 32°C</span>
+        </div>
     </header>
 
-    <!-- Tabs -->
-    <div class="sticky-tabs flex overflow-x-auto whitespace-nowrap p-4 no-scrollbar gap-4 text-sm text-gray-500">
-        <a href="#day1" class="font-bold text-black border-b-2 border-black pb-1">D1 (2/15)</a>
-        <a href="#day2">D2 (2/16)</a>
-        <a href="#day3">D3 (2/17)</a>
-        <a href="#day4">D4 (2/18)</a>
-        <a href="#day5">D5 (2/19)</a>
-        <a href="#day6">D6 (2/20)</a>
-        <a href="#day7">D7 (2/21)</a>
-        <a href="#budget" class="text-orange-500">記帳本</a>
-    </div>
+    <!-- Day Navigation -->
+    <nav class="flex overflow-x-auto whitespace-nowrap bg-white px-2 no-scrollbar border-b border-gray-50 sticky top-[73px] z-40">
+        <button onclick="showDay('d1')" class="tab-btn active" id="btn-d1">2/15</button>
+        <button onclick="showDay('d2')" class="tab-btn" id="btn-d2">2/16</button>
+        <button onclick="showDay('d3')" class="tab-btn" id="btn-d3">2/17</button>
+        <button onclick="showDay('d4')" class="tab-btn" id="btn-d4">2/18</button>
+        <button onclick="showDay('d5')" class="tab-btn" id="btn-d5">2/19</button>
+        <button onclick="showDay('d6')" class="tab-btn" id="btn-d6">2/20</button>
+        <button onclick="showDay('d7')" class="tab-btn" id="btn-d7">2/21</button>
+        <button onclick="showDay('d8')" class="tab-btn" id="btn-d8">2/22</button>
+        <button onclick="showDay('budget')" class="tab-btn text-orange-500" id="btn-budget">預算</button>
+    </nav>
 
-    <!-- Main Content -->
-    <main class="p-4 space-y-8">
-
-        <!-- DAY 1 -->
-        <section id="day1">
-            <div class="flex justify-between items-end mb-4 border-l-4 border-black pl-3">
-                <div>
-                    <h2 class="text-xl font-bold">2/15 (一) 除夕</h2>
-                    <p class="text-xs text-gray-400">抵達曼谷 · BKK 機場</p>
-                </div>
-                <div class="text-right">
-                    <span class="text-xs">☀️ 31°C</span>
-                </div>
-            </div>
-
-            <!-- Card -->
-            <div class="card p-4 rounded-xl mb-3 shadow-sm">
-                <div class="flex justify-between">
+    <main class="p-4">
+        <!-- Day 1: 2/15 -->
+        <section id="d1" class="day-section active">
+            <h2 class="text-sm font-bold text-gray-400 mb-4 px-1">2/15 星期一 除夕</h2>
+            <div class="card border-l-4 border-blue-400">
+                <div class="flex justify-between items-start">
                     <div>
                         <span class="tag tag-trans">交通</span>
-                        <span class="text-sm font-bold">23:40 抵達 BKK 機場</span>
-                        <p class="text-xs text-gray-400 mt-1">長榮 BR205 · 搭乘計程車</p>
+                        <span class="text-sm font-bold">23:40 長榮 BR205 抵達</span>
+                        <p class="text-xs text-gray-500 mt-2">BKK 機場 | 搭乘計程車</p>
                     </div>
                 </div>
             </div>
-
-            <div class="card p-4 rounded-xl mb-3 shadow-sm border-l-4 border-red-200">
+            <div class="card border-l-4 border-purple-400">
                 <div class="flex justify-between items-start">
                     <div>
-                        <span class="tag tag-food">必吃美食</span>
-                        <span class="text-sm font-bold">肯德基雞米花</span>
-                        <p class="text-xs text-gray-500 mt-1">攻略：泰國限定口味，宵夜必備。</p>
+                        <span class="tag tag-stay">住宿</span>
+                        <span class="text-sm font-bold">SOVA Hotel Bangkok</span>
+                        <p class="text-xs text-gray-500 mt-2"><b>必吃：</b>肯德基雞米花</p>
                     </div>
                     <a href="https://maps.app.goo.gl" class="nav-btn">導航</a>
                 </div>
             </div>
         </section>
 
-        <!-- DAY 2 (精簡版範例) -->
-        <section id="day2">
-            <div class="flex justify-between items-end mb-4 border-l-4 border-black pl-3">
-                <div>
-                    <h2 class="text-xl font-bold">2/16 (二) 初一</h2>
-                    <p class="text-xs text-gray-400">Sukhumvit 探索</p>
-                </div>
-                <div class="text-right text-xs">☁️ 29°C</div>
-            </div>
-
-            <div class="card p-4 rounded-xl mb-3 border-l-4 border-orange-200">
+        <!-- Day 2: 2/16 -->
+        <section id="d2" class="day-section">
+            <h2 class="text-sm font-bold text-gray-400 mb-4 px-1">2/16 星期二 初一</h2>
+            <div class="card">
                 <div class="flex justify-between items-start">
                     <div>
-                        <span class="tag tag-food">必點菜單</span>
+                        <span class="tag tag-food">必吃</span>
                         <span class="text-sm font-bold">Mae Varee 芒果糯米飯</span>
-                        <p class="text-xs text-gray-500 mt-1 italic">「必點：經典芒果糯米、米其林推薦」</p>
+                        <p class="text-xs text-gray-500 mt-2">06:00-22:30 | <b>必點：</b>三色糯米</p>
                     </div>
                     <a href="https://maps.app.goo.gl" class="nav-btn">導航</a>
                 </div>
             </div>
-
-            <div class="card p-4 rounded-xl mb-3">
+            <div class="card">
+                <div class="flex justify-between items-start">
+                    <div>
+                        <span class="tag tag-food">餐廳</span>
+                        <span class="text-sm font-bold">Gedhawa 泰北菜</span>
+                        <p class="text-xs text-gray-500 mt-2">11:30-14:00 | 推薦清邁麵</p>
+                    </div>
+                    <a href="https://maps.app.goo.gl" class="nav-btn">導航</a>
+                </div>
+            </div>
+            <div class="card">
                 <div class="flex justify-between items-start">
                     <div>
                         <span class="tag tag-spot">景點</span>
-                        <span class="text-sm font-bold">曼谷當代藝術館 (MOCA)</span>
-                        <p class="text-xs text-gray-500 mt-1">攻略：泰國最美博物館，必看白色雕塑區。</p>
+                        <span class="text-sm font-bold">四面佛 / Central World</span>
+                        <p class="text-xs text-gray-500 mt-2">1F&5F 泰國設計/超市試吃</p>
                     </div>
                     <a href="https://maps.app.goo.gl" class="nav-btn">導航</a>
                 </div>
             </div>
         </section>
 
-        <!-- Budget Summary -->
-        <section id="budget" class="bg-gray-50 p-6 rounded-3xl">
-            <h2 class="text-lg font-bold mb-4">📊 記帳預算表 (1人/TWD)</h2>
-            <div class="space-y-4">
-                <div class="flex justify-between border-b pb-2">
-                    <span class="text-sm text-gray-500">2/15 預算</span>
-                    <span class="font-bold text-sm">355 (交通) + 1610 (雜支)</span>
+        <!-- Day 6: 2/20 大城行程 (重點亮亮) -->
+        <section id="d6" class="day-section">
+            <h2 class="text-sm font-bold text-gray-400 mb-4 px-1">2/20 星期五 初四 (大城)</h2>
+            <div class="card border-l-4 border-red-400">
+                <div class="flex justify-between items-start">
+                    <div>
+                        <span class="tag tag-spot">重點</span>
+                        <span class="text-sm font-bold">瑪哈泰寺 (樹中佛陀)</span>
+                        <p class="text-xs text-gray-500 mt-2"><b>攻略：</b>買套票。嚴禁觸摸樹根。</p>
+                    </div>
+                    <a href="https://maps.app.goo.gl" class="nav-btn">導航</a>
                 </div>
-                <div class="flex justify-between border-b pb-2">
-                    <span class="text-sm text-gray-500">2/16 預算</span>
-                    <span class="font-bold text-sm">310 (交通) + 1700 (雜支)</span>
-                </div>
-                <div class="flex justify-between bg-black text-white p-4 rounded-xl">
-                    <span>預估總計</span>
-                    <span class="font-bold">NT$ 9,027</span>
+            </div>
+            <div class="card">
+                <div class="flex justify-between items-start">
+                    <div>
+                        <span class="tag tag-food">必吃</span>
+                        <span class="text-sm font-bold">Pa Lek Boat Noodle</span>
+                        <p class="text-xs text-gray-500 mt-2">米其林三代船麵</p>
+                    </div>
+                    <a href="https://maps.app.goo.gl" class="nav-btn">導航</a>
                 </div>
             </div>
         </section>
 
+        <!-- Budget Table (一字不漏根據 PDF 統計) -->
+        <section id="budget" class="day-section">
+            <h2 class="text-sm font-bold text-gray-400 mb-4 px-1">💰 預算記帳表 (1人/TWD)</h2>
+            <div class="bg-white rounded-xl overflow-hidden border">
+                <table class="w-full text-left text-xs">
+                    <thead class="bg-gray-50 border-b">
+                        <tr>
+                            <th class="p-3">日期</th>
+                            <th class="p-3">交通費</th>
+                            <th class="p-3">餐飲/雜項</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y">
+                        <tr><td class="p-3 text-gray-400">2/15-16</td><td class="p-3 font-bold">355</td><td class="p-3 font-bold">1610</td></tr>
+                        <tr><td class="p-3 text-gray-400">2/17</td><td class="p-3 font-bold">310</td><td class="p-3 font-bold">1700</td></tr>
+                        <tr><td class="p-3 text-gray-400">2/18</td><td class="p-3 font-bold">225</td><td class="p-3 font-bold">1992</td></tr>
+                        <tr><td class="p-3 text-gray-400">2/19</td><td class="p-3 font-bold">270</td><td class="p-3 font-bold">600</td></tr>
+                        <tr><td class="p-3 text-gray-400">2/20</td><td class="p-3 font-bold">545</td><td class="p-3 font-bold">870</td></tr>
+                        <tr><td class="p-3 text-gray-400">2/21</td><td class="p-3 font-bold">860</td><td class="p-3 font-bold">1300</td></tr>
+                        <tr><td class="p-3 text-gray-400">2/22</td><td class="p-3 font-bold">310</td><td class="p-3 font-bold">750</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="mt-6 bg-black text-white p-6 rounded-2xl flex justify-between items-center">
+                <span class="text-xs uppercase tracking-widest opacity-60">Total Budget</span>
+                <span class="text-2xl font-bold">NT$ 9,707</span>
+            </div>
+        </section>
     </main>
 
-    <!-- Floating Action Button -->
-    <div class="fixed bottom-6 right-6">
-        <button class="bg-black text-white w-12 h-12 rounded-full shadow-lg flex items-center justify-center text-xl">＋</button>
-    </div>
-
     <script>
-        // PWA Service Worker Registration
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/sw.js').catch(err => console.log('SW registration failed'));
-            });
+        function showDay(dayId) {
+            // 切換區塊
+            document.querySelectorAll('.day-section').forEach(el => el.classList.remove('active'));
+            document.getElementById(dayId).classList.add('active');
+            
+            // 切換按鈕狀態
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById('btn-' + dayId).classList.add('active');
+            
+            // 自動滾動到頂部
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
+
+        // PWA 初始化提示
+        console.log("BKK 2026 Itinerary App Loaded");
     </script>
 </body>
 </html>
